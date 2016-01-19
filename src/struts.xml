@@ -14,6 +14,59 @@
             <result>/index.jsp</result>
         </action>
 	</package>
+	
+	<package name="" namespace="/" extends="struts-default">
+
+        <action name="Login_input" class="action.LoginAction">
+            <!--    <result >/jquery/contacts.jsp</result> -->
+         <result type= "chain" name="success">main</result>  
+        </action>
+	</package>
+	
+	<package name="main" namespace="/" extends="struts-default">
+        <action name="main" class="action.DishAction">
+          <!--    <result >/jquery/contacts.jsp</result>  -->
+           <result>/jquery/contacts.jsp</result> 
+        </action>
+	</package>
+	
+	<package name="ajax" extends="json-default">
+        <action name="order"
+            class="action.Order">
+            <result type="json"></result>
+        </action>
+    </package>
+    
+    <package name="diancai" namespace="/" extends="struts-default">
+        <action name="detail" class="action.DetailAction">
+            <result >/jquery/alerts.jsp</result>
+        </action>
+    </package>
+    
+     <package name="judge" namespace="/" extends="struts-default">
+        <action name="judge" class="action.JudgeAction">
+            <result >/jquery/judge.jsp</result>
+        </action>
+    </package>
+    
+    <package name="chiken" namespace="/" extends="struts-default">
+        <action name="chiken" class="action.ChikenAction">
+            <result >/jquery/chiken.jsp</result>
+        </action>
+    </package>
+    
+    <package name="confirm" namespace="/" extends="json-default">
+        <action name="confirm" class="action.ConfirmAction">
+            <result type="json">/jquery/chiken.jsp</result>
+        </action>
+    </package>
+    
+    <package name="cancel" namespace="/" extends="json-default">
+        <action name="cancel" class="action.ConcelAction">
+            <result type="json">/jquery/chiken.jsp</result>
+        </action>
+    </package>
+	
     <!-- Add packages here -->
 
 </struts>

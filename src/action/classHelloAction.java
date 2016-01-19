@@ -2,17 +2,38 @@ package action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import model.User;
 import tools.JDBCBaseDAO;
 
 public class classHelloAction  extends ActionSupport{
 	
 	   private String message;
 	   private JDBCBaseDAO jdbcDao = new JDBCBaseDAO();
-	  
-	   public String getMessage() {
+	   String username;
+	   int id;
+	   public List<User>  testList=  new ArrayList<User>();
+	   
+	   public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMessage() {
 	      return message;
 	   }
 	  
@@ -28,15 +49,32 @@ public class classHelloAction  extends ActionSupport{
 	      String sqlsec = "select * from user where id = ?";
 		  List list = new ArrayList();
 		  list.add(1);
-		  List result = jdbcDao.find(sqlsec, list.toArray());
-	      System.out.println(result);
+		  List tempList = jdbcDao.find(sqlsec, list.toArray());
+		  for(int i = 0 ;i < tempList.size();i++){
+			  Map tempm = (Map) tempList.get(0);
+			  User tempuser = new User((int)tempm.get("id"), (String) tempm.get("name"));
+			  testList.add(tempuser);
+		  }
+		  Map loginmap = (Map) tempList.get(0);
+		  username = "王明";
+		  id = (int) loginmap.get("id");
+		  System.out.println(username + "....."  + id);
+	      System.out.println(testList.get(0));
 		  
 	      return "success";
 	      
 	   }
 	   
 	   
-	   public String other(){
+	   public List<User> getTestList() {
+		return testList;
+	}
+
+	public void setTestList(List<User> testList) {
+		this.testList = testList;
+	}
+
+	public String other(){
 	      this.message="第二个方法";
 	      return "success";
 	   }
@@ -47,6 +85,10 @@ public class classHelloAction  extends ActionSupport{
 			  List list = new ArrayList();
 			  list.add(1);
 			  List result = jdbcDao.find(sqlsec, list.toArray());
-		      System.out.println(result);
+			  //User loginmap = (User) result.get(0);
+			  //String username = (String) loginmap.get("name");
+			 //int id = (int) loginmap.get("id");
+			  //System.out.println(username + "...." + id);
+		      //System.out.println(loginmap);
 	   }
 }
